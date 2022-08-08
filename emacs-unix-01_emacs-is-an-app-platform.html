@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ramin Honary: Emacs fulfills UNIX, part 1 -- Emacs is an app platform</title>
+<meta name="author" content="Ramin Honary"/>
+<meta name="date" content=""/>
+<meta name="modified" content=""/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/amiri" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/roboto-condensed" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/renner" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/dejavu-sans-mono" type="text/css"/>
+<link rel="stylesheet" media="screen" href="/~ramin_hal9001/style-main.css"/>
+<body>
+<main>
+<article>
+  <header>
+    <h1>Emacs fulfills the <i>UNIX Philosophy</i></h1>
+    <menu>
+      <menuitem><a href="/~ramin_hal9001/index.html">Home</a></menuitem>
+      <menuitem><a href="/~ramin_hal9001/about.html">About</a></menuitem>
+      <menuitem><a href="https://github.com/RaminHAL9001">GitHub</a></menuitem>
+    </menu>
+  </header>
+
+  <h2>Part 1: Emacs is an app platform</h2>
+
+  <blockquote>
+    <em>This is part 1 of
+    a <a href="./emacs-fulfills-the-unix-philosophy.html">6-part
+    series</a> of articles defining what the UNIX philosophy is, what
+    Emacs is, and discussing whether Emacs fulfills the UNIX
+    philosophy.</em>
+  </blockquote>
+
+  <pre>0. <a href="./emacs-fulfills-the-unix-philosophy.html">Introduction</a>
+1. Emacs is an app platform
+2. <a href="./emacs-unix-02_what-is-the-unix-philosophy.html">What is the UNIX philosophy</a>
+3. <a href="./emacs-unix-03_unix-is-lesser-fp.html">Seems like Functional Programming</a>
+4. <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">Lisp does FP better than UNIX shell programming</a>
+5. <a href="./emacs-unix-05_unix-and-lisp-history.html">The parallel histories of UNIX and Lisp</a>
+6. <a href="./emacs-unix-06_rebutting-critiques.html">Response to common criticisms</a></pre>
+
+  <h3>Emacs does not have <q>extensions,</q> it has apps</h3>
+
+  <p>There is one argument that I have got very tired of hearing,
+  which goes something like this:</p>
+
+  <blockquote>
+    <p><i>If the UNIX Philosophy is that <q>every prorogram does one
+    thing, and does it well,</q> then Emacs is the opposite of
+    that. It is a text editing program that tries to
+    do <b>everything</b>. It has extensions for being an e-mail
+    client and web client, for playing music, for managing Git
+    branches, even for playing Tetris. Who needs a text editor with
+    that much bloat? Emacs may as well be an operating system, not an
+    editor.</i></p>
+  </blockquote>
+
+  <p>There are two problems with this argument:</p>
+
+  <ol>
+    <li><p>Emacs is not a text editor, it is an interactive Lisp
+    runtime environment, i.e. it is a programming language. Emacs
+    really does do just one thing, and does it well: it runs Lisp
+    programs.</p></li>
+
+    <li><p>Most of those <q>extensions,</q> except maybe Tetris, are
+    not bloat, they are Lisp <b>packages</b>, or <q>apps</q> if you
+    will, that run in the Emacs runtime. (Well, some people actually
+    kind of <em>need</em> Tetris.) Most other programming languages
+    you install will come with a selection of useful packages along
+    with it &mdash; maybe even Tetris if perhaps it is designed
+    for <a href="https://love2d.org/">programming games</a>. And like
+    Python&apos;s PIP, Perl&apos;s CPAN, Ruby&apos;s Gem, Node&apos;s
+    NPM, Rust&apos;s Cargo, Haskell&apos;s Cabal, and Common
+    Lisp&apos;s QuickLisp, Emacs does have it's
+    own <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html">package
+    manager</a> and package repository as well, called
+    <a href="https://elpa.gnu.org">ELPA</a>.</p>
+
+  </ol>
+
+  <h4>The Emacs text editor is also an app</h4>
+
+  <p>The text editor in Emacs is just another one of the pre-installed
+  Lisp packages. The text editor happens to be the first thing you see
+  when you run Emacs with a file as an argument, so it is
+  understandable that people confuse Emacs with an ordinary text
+  editor.</p></li>
+
+  <p>So I think it is better to define Emacs not as an editor, but as
+  a Lisp app platform. It can be thought of as analogous to how the
+  World Wide Web is a JavaScript app platform, or Microsoft&apos;s
+  .NET is a C# app platform. Emacs is not an OS, but it is easy to see
+  why an app platform might be confused for an OS &mdash; OSs and app
+  platforms do share a lot in common. On small platforms like
+  smartphones and tablets, the OS and app platform are
+  indistinguishable, even on Android OS which uses the Linux
+  kernel.</p>
+
+  <h4>Emacs Lisp is a powerful programming language</h4>
+
+  <p>I also think Emacs Lisp is a pretty powerful language in it's own
+  right, as most languages in the Lisp family are. Lisp programs
+  running in Emacs can be much more composable than other programs
+  in <a href="https://archive.org/details/unixprogramminge0000kern">the
+  UNIX Programming Environment</a>. One reason for this is that Lisp
+  is a proper functional programming (FP) language, while the Bourne
+  shell family of languages are not, as I
+  will <a href="./emacs-unix-03_unix-is-lesser-fp.html">try to explain
+  in part 3 of this series</a>. Emacs also provides APIs for running
+  POSIX processes, so Emacs can act as a shell just as well or better
+  than Bash can.</p>
+
+  <p>Although Emacs is most effective if used as an interactive Lisp
+  programming environment, some people I know of do use Emacs
+  as <em>just</em> a text editor, and often it is because they are
+  most familiar with the key bindings. People in this camp could care
+  less about Lisp or any of the other Emacs apps. For people who use
+  Emacs in this way, I would recommend using a lighter-weight text
+  editor
+  like <a href="https://www.jedsoft.org/jed/">Jed</a>, <a href="https://github.com/jonmacs/jove">Jove</a>,
+  <a href="https://homepage.boetes.org/software/mg/">MG</a>, <a href="https://www.gnu.org/software/zile/">Zile</a>,
+  or <a href="https://sites.google.com/site/e3editor/">e3em</a>. Honestly
+  though, I don&apos;t think the key bindings are Emacs&apos;s
+  greatest strength. In my opinion, there is little purpose in using
+  an Emacs-like editor unless you really just love the key bindings.
+  The true strength of GNU Emacs is it&apos;s app ecosystem.</p>
+
+  <h3>Conclusions</h3>
+
+  <p>This was a very short article that I hope dispenses with the
+  biggest misconception of Emacs, at least in my experiences talking
+  about it with peers. I hope we can agree from the beginning that we
+  should define Emacs <em>not</em> as a text editor, but as an app
+  platform for which apps are programmed in a dialect of the Lisp
+  programming language. But I have only breifly discussed here how
+  this relates to the UNIX philosophy, so this is what I will talk
+  about at length next
+  time, <a href="./emacs-unix-02_what-is-the-unix-philosophy.html">in
+  part 2 of this series</a>.</p>
+  
+  <footer>
+    <menu>
+      <menuitem><a href="./emacs-fulfills-the-unix-philosophy.html">Previous</a></menuitem>
+      <menuitem><a href="./emacs-unix-02_what-is-the-unix-philosophy.html">Next</a></menuitem>
+    </menu>
+
+    <!-- (TZ=UTC LC_TIME=en.US date '+%a, %F %H:%M %Z') -->
+    <h5 class="date">Published: </h5>
+    <!-- <h5 class="modified">Last modified: </h5> -->
+  </footer>
+</article>
+</main>
+</body>
+</html>

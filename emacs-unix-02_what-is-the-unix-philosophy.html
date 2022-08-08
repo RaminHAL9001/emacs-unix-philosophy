@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ramin Honary: Emacs fulfills UNIX, part 2 -- What is the UNIX philosophy</title>
+<meta name="author" content="Ramin Honary"/>
+<meta name="date" content=""/>
+<meta name="modified" content=""/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/amiri" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/roboto-condensed" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/renner" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/dejavu-sans-mono" type="text/css"/>
+<link rel="stylesheet" media="screen" href="/~ramin_hal9001/style-main.css"/>
+<body>
+<main>
+<article>
+  <header>
+    <h1>Emacs fulfills the <i>UNIX Philosophy</i></h1>
+    <menu>
+      <menuitem><a href="/~ramin_hal9001/index.html">Home</a></menuitem>
+      <menuitem><a href="/~ramin_hal9001/about.html">About</a></menuitem>
+      <menuitem><a href="https://github.com/RaminHAL9001">GitHub</a></menuitem>
+    </menu>
+  </header>
+
+  <h2>Part 2: What is the UNIX philosophy?</h2>
+
+  <blockquote>
+    <em>This is part 2 of
+    a <a href="./emacs-fulfills-the-unix-philosophy.html">6-part
+    series</a> of articles defining what the UNIX philosophy is, what
+    Emacs is, and discussing whether Emacs fulfills the UNIX
+    philosophy.</em>
+  </blockquote>
+
+  <pre>0. <a href="./emacs-fulfills-the-unix-philosophy.html">Introduction</a>
+1. <a href="./emacs-unix-01_emacs-is-an-app-platform.html">Emacs is an app platform</a>
+2. What is the UNIX philosophy
+3. <a href="./emacs-unix-03_unix-is-lesser-fp.html">Seems like Functional Programming</a>
+4. <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">Lisp does FP better than UNIX shell programming</a>
+5. <a href="./emacs-unix-05_unix-and-lisp-history.html">The parallel histories of UNIX and Lisp</a>
+6. <a href="./emacs-unix-06_rebutting-critiques.html">Response to common criticisms</a></pre>
+
+  <p>In <a href="./emacs-unix-01_emacs-is-an-app-platform.html">part 1
+  of this series</a> I dispell the myth that Emacs is a <q>bloated</q>
+  text editor that does everything. I declare that Emacs is really a
+  Lisp interpreer, and therefore it does just one thing and does it
+  well: it runs Lisp programs, so in this way, Emacs does fulfill the
+  UNIX Philosophy.</p>
+
+  <p>But is this really a satisfactory argument? It might sound like
+  Emacs <em>technically</em> follows the UNIX Philosophy, but does not
+  really follow the spirit of the philosophy. So in the rest of this
+  series, I want to really examine how the UNIX Philosophy is defined,
+  what some of the key principles of UNIX are, and whether using Emacs
+  allows you to really follow the principles of the UNIX
+  Philosophy.</p>
+
+  <h3>What the authorities say</h3>
+
+  <p>Several notable software engineers, most of whom actually worked
+  on the UNIX project at Bell Labs, have spoken on the subject:</p>
+  <ul>
+    <li><p> <a href="https://en.wikipedia.org/wiki/Doug_McIlroy">Doug
+      McIlroy</a> in the foreward to original manual for
+      the <a href="https://archive.org/details/bstj57-6-1899/mode/2up">UNIX
+      Time-Sharing System</a> in 1978.</p></li>
+    <li><p><a href="https://www.cs.princeton.edu/people/profile/bwk">Brian
+      Kernighan</a>
+      and <a href="https://en.wikipedia.org/wiki/Rob_Pike">Rob
+      Pike&apos;s</a> indispensible text
+      book, <a href="https://archive.org/details/unixprogramminge0000kern">The
+      UNIX Programming Environment</a> in 1984.</p></li>
+    <li><p><a href="https://en.wikipedia.org/wiki/Peter_H._Salus">Peter
+      H. Salus</a> who
+      wrote <a href="https://archive.org/details/aquartercenturyofunixpeterh.salus_201910">A
+      Quarter Century of UNIX</a> in 1994.</p></li>
+    <li><p>and <a href="https://en.wikipedia.org/wiki/Eric_S._Raymond">Eric
+      S. Raymond&apos;s</a>
+      texbook <a href="https://www.oreilly.com/library/view/the-art-of/0131429019/">The
+      Art of UNIX Programming</a> in 2003.</p></li>
+  </ul>
+
+  <p>Of course, each person has their own way of defining what the
+  UNIX Philosophy is. Reading through all of their opinions on what
+  the UNIX Philosophy is, I can find three main points that all
+  definitions have in common:</p>
+
+  <ol>
+    <li><p><a href="#def-minimal">Programs should be simple, minimal,
+    elegant, general, modular, composable <em>tools</em></a>. Each
+    program is a tool that <q>does just one thing, and does it
+    well,</q> and tools should be designed to <q>compose</q> to solve
+    larger, more specific problems.</p></li>
+    <li><p>Programs are composable if they focus on transforming or
+    filtering data, and data should usually be both human readable and
+    machine readable text whenever possible.
+    <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>
+    and
+    <a href="https://en.wikipedia.org/wiki/S-expression">S-Expressions</a>
+    are good ways to interchange
+    data. Nowadays <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>
+    is likely to be the most popular data interchange format that is
+    both human and machine readable.</p></li>
+    <li><p>Programs should encourage task automation through
+    experimentation. It is implied that using
+    a <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">Read-Eval-Print
+    Loop (REPL)</a> to experiment with executing programs, and being
+    able to immediately see the results of program execution, is an
+    important tenet of the UNIX Philosophy.</p></li>
+  </ol>
+
+  <p>So it is clear that the UNIX Philosophy is describing a way of
+  thinking about how to design and use <q>programs.</q></p>
+
+  <a name="def-minimal"><h3>Programs are minimalist tools that are composable</h3></a>
+
+  <p>This is usually explained with an adage:</p>
+
+  <blockquote><p><i>Every program does just one thing, and does it
+  well.</i></p><p>&mdash; Doug McIlroy</p></blockquote>
+
+  <p>To elaborate on this further:</p>
+
+  <blockquote><p>
+    <i>Because the philosophy is based on the relationships between
+    programs, we must devote most of the space to discussions about
+    the individual tools, but throughout run the themes of combining
+    programs and of using programs to build programs. To use the UNIX
+    system and its components well, you must understand not only how
+    to use the programs, but also how they fit into the
+    environment.</i></p>
+
+    <p>&mdash; Kernighan &amp; Pike, preface to <q><i>The UNIX
+    Programming Environment</i></q>
+  </blockquote>
+
+  <p>The UNIX philosophy is to think of programs as tools. Consider
+  what properties of <q>tools</q> in the operating system are
+  desirable. Eric S. Raymond describes tools with all of the words
+  simple, small, transparent, robust, modular, readable, flexible, and
+  composable. Other people use words like minimal, elegant, beautiful,
+  and general. The point that the UNIX Philosophers seem to be making
+  is that it should be easy to reason about the behavior of a program
+  as easily as you can reason about the behavior of a hammer or
+  screwdriver. And you should be able to easily reason about ways to
+  use programs together in pipelines to transform data.</p>
+
+  <p>I whole-heartedly agree that this is a virtuous property for any
+  piece of software to have. After all, humans have evolved a powerful
+  innate skill for using tools. So building systems of interconnected
+  tools comes naturally to us, and our computational tools should work
+  the same. I strongly prefer programs to work like <em>tools</em>, or
+  perhaps <em>components</em> similar to electronic circuits &mdash;
+  in fact, theoretically any software can be implemented as an digital
+  electronic circuit and vice-versa. There is something deeply
+  satisfying to me about the idea of software components wired
+  together like electrical circuitry, or plumbing in a hydraulic
+  system.</p>
+
+  <h3>Conclusions</h3>
+
+  <p>Now we know what the authors of UNIX think, and we have seen
+  their authoritative definition of the UNIX philosophy is, as well as
+  the opinion of other experts like Eric Raymond and Peter Salus. My
+  own definition of the UNIX Philosophy is a reconciliation of all of
+  the opinions of these authorities, which is the idea that
+  every <q>program</q> is an elegant tool to be used in combination
+  with others. UNIX programs should be designed and used as such. In
+  the <a href="./emacs-unix-03_unix-is-lesser-fp.html">next article in
+  this series</a>, I talk about how UNIX relates to the priniciples of
+  functional programming, and Lisp (e.g. Emacs Lisp) in particular. I
+  will argue that this notion of a <q>program</q> according to the
+  UNIX school of thought, is similar to the notion of
+  a <q>function</q> according to the functional programming
+  paradigm.</p>
+  
+  <footer>
+    <menu>
+      <menuitem><a href="./emacs-unix-01_emacs-is-an-app-platform.html">Previous</a></menuitem>
+      <menuitem><a href="./emacs-unix-03_unix-is-lesser-fp.html">Next</a></menuitem>
+    </menu>
+
+    <!-- (TZ=UTC LC_TIME=en.US date '+%a, %F %H:%M %Z') -->
+    <h5 class="date">Published: </h5>
+    <!-- <h5 class="modified">Last modified: </h5> -->
+  </footer>
+</article>
+</main>
+</body>
+</html>

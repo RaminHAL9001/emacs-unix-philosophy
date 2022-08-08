@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ramin Honary: Emacs fulfills UNIX, part 5 -- the parallel histories of UNIX and Lisp</title>
+<meta name="author" content="Ramin Honary"/>
+<meta name="date" content=""/>
+<meta name="modified" content=""/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/amiri" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/roboto-condensed" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/renner" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/dejavu-sans-mono" type="text/css"/>
+<link rel="stylesheet" media="screen" href="/~ramin_hal9001/style-main.css"/>
+<body>
+<main>
+<article>
+  <header>
+    <h1>Emacs fulfills the <i>UNIX Philosophy</i></h1>
+    <menu>
+      <menuitem><a href="/~ramin_hal9001/index.html">Home</a></menuitem>
+      <menuitem><a href="/~ramin_hal9001/about.html">About</a></menuitem>
+      <menuitem><a href="https://github.com/RaminHAL9001">GitHub</a></menuitem>
+    </menu>
+    <h2>Part 5: The parallel histories of UNIX and Lisp</h2>
+  </header>
+
+  <blockquote>
+    <em>This is part 5 of
+    a <a href="./emacs-fulfills-the-unix-philosophy.html">6-part
+    series</a> of articles defining what the UNIX philosophy is, what
+    Emacs is, and discussing whether Emacs fulfills the UNIX
+    philosophy.</em>
+  </blockquote>
+
+  <pre>0. <a href="./emacs-fulfills-the-unix-philosophy.html">Introduction</a>
+1. <a href="./emacs-unix-01_emacs-is-an-app-platform.html">Emacs is an app platform</a>
+2. <a href="./emacs-unix-02_what-is-the-unix-philosophy.html">What is the UNIX philosophy</a>
+3. <a href="./emacs-unix-03_unix-is-lesser-fp.html">Seems like Functional Programming</a>
+4. <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">Lisp does FP better than UNIX shell programming</a>
+5. The parallel histories of UNIX and Lisp
+6. <a href="./emacs-unix-06_rebutting-critiques.html">Response to common criticisms</a></pre>
+
+  <p>In <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">part 4
+  of this series</a> I talk about how the Bourne shell languge falls
+  short of being a FP language. In this article I consider the
+  question of whether UNIX may have been inspired by Lisp, as both
+  were developed in part at
+  the <a href="https://www.csail.mit.edu/">MIT CSAIL
+  laboratory</a>. But as we shall see, the UNIX engineers had left
+  CSAIL just before John McCarthy, inventor of Lisp, would set up shop
+  there. I conclude that UNIX takes no inspiration from Lisp, but both
+  UNIX and Lisp share some features in common, especially REPL-based
+  software development techniques in a Command Line Interface (CLI),
+  because both were invented around the time when the CLI was
+  invented.</p>
+
+  <h3>A digression: the pre-history of the CLI</h3>
+
+  <p>The history of Lisp and UNIX both originate around the time that
+  computer companies like IBM and DEC started to develop <em><b>time
+  sharing systems</b></em> in the early 1960s, because it was this
+  innovation that naturally led to interactive
+  <a href="https://en.wikipedia.org/wiki/Command-line_interface">command
+  line interfaces (CLIs)</a> and
+  the <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">Read-Eval-Print
+  Loop (REPL)</a>. It was around this time that people would first
+  begin philosophizing about the best ways to use computers in
+  interactive CLIs.</p>
+
+  <p>Several computing platforms would eventually build interactive
+  CLIs, and the idea would be wide spread well into the personal
+  computing era of the 1970s - 1980s, until they would go out-of-vogue
+  with the rise of GUIs. Interestingly, some of the very first CLI
+  systems, Lisp, and UNIX, remain useful even half a century later,
+  surviving beyond most other CLI systems of the era which have now
+  dissapeared. Why this happened might be because of the separately
+  enduring philosophies that guided the design of systems of Lisp and
+  UNIX.</p>
+
+  <h4>What were <em>time sharing systems</em>?</h4>
+
+  <p>The way people used computers in the 1950s was to write a program
+  as a batch of punch cards using punch card typewriters, then place
+  your batch into a queue where the system operator would load your
+  program from the punch cards into memory, then execute the
+  program. The operator would then take the print-out resulting from
+  the execution of your program and send it to you, hours or days
+  later. Imaging waiting a day or more for your program to run, only
+  to find out that there was typeo in your code.</p>
+
+  <p>Punch cards were not only slow, but notoriously unreliable,
+  introducing errors into data due to poor electrical conductivity in
+  the point contacts. Getting rid of punch cards was an obvious way to
+  improve how computers were used. It was not be long before
+  technology would progress to the point where punch card typewriters
+  could be modified to send electrical signals which could enter
+  characters directly into computer memory. Conversely, strings of
+  characters in computer memory could be transmitted back to the
+  typewriter as electrical signals that would actuate
+  <a href="https://en.wikipedia.org/wiki/Sort_(typesetting)">type</a>
+  to stamp each character onto the paper feed.</p>
+
+  <p>This technological advancement would eventually allow the
+  typewriter terminals to be connected to a computer over a telephone
+  network &mdash; the <q><i>teletype terminal</i>.</q> And with the
+  technological advancement of Teletype terminals, larger numbers of
+  people would be able to all use the computer at once. All that was
+  needed was an operating system that could allow multiple users, each
+  with a teletype terminal, to all share the limited computing
+  resources: this is what the <em>Time Sharing Systems</em> were
+  for.</p>
+
+  <p>Time sharing systems were a major improvement over the old ways
+  of using computers. The huge, expensive mainframe computers used in
+  accounting departments, which would often sit idle, could now be
+  used all the time by selling computing time to remote users over
+  teletype terminals. As a result, more people &mdash; mathematicians,
+  scientists, engineers, students &mdash; could now have access to
+  computers, which led to even more scientific innovation.</p>
+
+  <p>Time sharing systems also improved the quality of computer
+  interaction. Rather than waiting for the print-out of your punch
+  card program to come back hours or days later, you could use a
+  teletype terminal to enter commands over a telephone line
+  (a <q><i>command line</i></q>) directly into the computer, and then
+  get results back almost immediately. Computers could now, for the
+  first time, be used <em>interactively</em>, and it would not be much
+  longer before computer engineers of the era would start to
+  philosophize about how to most effectively use this new interactive
+  computer technology.</p>
+
+  <h4>1958-1963: Lisp, and the first REPL</h4>
+
+  <p>The Lisp programming language was invented in 1958 at MIT by
+  professor John McCarthy, written on punch cards in the assembly
+  language for the IBM 704 mainframe. This was not even a full year
+  after the USSR launched the <i>Sputnik I</i> artificial satellite
+  that kicked the Cold War into high gear. The Cold War would drive
+  incredible demand for science and technology research, and with it,
+  demand for more access to computers. Not long after inventing Lisp,
+  McCarthy would become more involved in time sharing technology.</p>
+
+  <p>With more demand for computing time, it became clear that a
+  market for smaller, cheaper versions of mainframes computers would
+  also be profitable. Several companies would begin developing and
+  selling these <q>minicomputers</q> including the DEC
+  corporation. Minicomputers were still quite large, but reduced
+  capital cost of ownership compared to mainframes, and thus had
+  potential for higher profit margins on selling computing time. So by
+  the mid 1960s there were more computers in production, and thanks to
+  time sharing, computers were more redily available to a larger user
+  base.</p>
+
+  <p>With the recent innovation of interactive CLIs, and now the more
+  wide-spread availability of less expensive minicomputers, Lisp would
+  only have to wait 5 years (until 1963) after first being published
+  before someone would try writing an interactive Lisp interpreter
+  &mdash; the first Lisp REPL &mdash; for the PDP-1
+  computer. <a href="http://jmc.stanford.edu/articles/lisp/lisp.pdf">McCarthy
+  would recall</a> that the DEC-1 did not have enough memory to do any
+  useful symbolic computation. But only a year later, in 1964, a new
+  Lisp REPL would be written for the more powerful PDP-6 computer, and
+  this would be the first time a truly useful Lisp REPL was
+  realized.</p>
+
+  <h4>1964: MIT, Bell Labs, and the GE corporation collaborate on Multics</h4>
+
+  <p>Also in 1964, the General Electric corporation, Bell Labs, and
+  MIT, would begin a collaborative research effort into time sharing
+  systems. This would become
+  the <a href="https://web.mit.edu/multics-history/">Multics operating
+  system</a>, and two engineers, Brian Kernighan and Dennis Ritchie,
+  would work on this project, and would eventually go on to make
+  history inventing the C programming language, along with
+  contributing to the development of UNIX. To facilitate research
+  projects like Multics, MIT would establish the
+  <a href="https://www.csail.mit.edu/">Computer Science and Aritifical
+  Intelligence Laboratory, CSAIL</a>. In time, John McCarthy would
+  come to work at CSAIL, and would bring Lisp with him to do symbolic
+  computing and artificial intelligence, along with other AI founders
+  like Peter Norvig and Marvin Minsky. But by the time McCarthy
+  started working at CSAIL, Kernighan and Ritchie were no longer
+  working on Multics, they had moved on to
+  invent <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language">the
+  C programming language</a>, which would then be used to develop
+  UNIX. In every recounting of the history of UNIX by the engineers
+  involved, none of them mention John McCarthy or Lisp as the
+  inspiration for their interactive computing environment.</p>
+
+  <p>In 1969, around the time the US landed a man on the moon, the
+  former Multics engineers would begin work on UNIX at Bell Labs,
+  incorporating many of the ideas they had devised for the Multics
+  project. Both Multics and UNIX were time sharing systems, so using
+  it through an interactive CLI was one of the fundamental assumptions
+  that would guide the design of the user interface.</p>
+
+  <p>UNIX was a big hit. The MIT CSAIL laboratory would eventually buy
+  computers running UNIX OS sometime in the 1970s, and MIT
+  professor <a href="https://stallman.org/">Richard M. Stallman</a>
+  talks about <a href="https://www.gnu.org/gnu/thegnuproject.html">how
+  he had used these UNIX computers</a> while developing the first
+  pieces of GNU software in the early 1980s. So Emacs was one of the
+  earliest interactive Lisp REPLs ever programmed for the UNIX OS.</p>
+
+  <p>But it is unfortunate that UNIX was not inspired by Lisp. In
+  McCarthy&apos;s 1960 paper on
+  Lisp, <a href="http://jmc.stanford.edu/articles/recursive/recursive.pdf"><i>Recursive
+  Functions of Symbolic Expressions and Their Computation by Machine,
+  Part I</i></a>, he specifically cites the 1941 paper on
+  the <a href="https://en.wikipedia.org/wiki/Lambda_calculus">Lambda
+  Calculus</a> by mathematician
+  <a href="https://en.wikipedia.org/wiki/Alonzo_Church">Alonzo
+  Church</a>  (a contemporary
+  of <a href="https://en.wikipedia.org/wiki/Alan_Turing">Alan
+  Turing</a>), as the model for the Lisp programming language. This is
+  why anonymous functions are called <code>lambda</code>s. The UNIX
+  people were not guided by Lambda Calculus, and without the solid
+  mathematical foundations that McCarthy used for Lisp, UNIX shell
+  programming turned out to not be anywhere near as elegant as
+  Lisp.</p>
+
+  <h3>Conclusions</h3>
+
+  <p>Even though Lisp and UNIX were developed by different groups of
+  people, with different guiding philosophies, both systems emerged
+  during a time when interactive CLI technology was starting to
+  reshape how people thought about using computers. And I would argue
+  that the UNIX Philosophy is really just describing the same
+  techniques and computer usage habits that had been discovered
+  independently at the same time (slightly earlier than UNIX) as
+  Lisp&apos;s notion of functional programming in a
+  REPL. Unfortunately, without the Lambda Calculus as a guide, the
+  UNIX Philosophy turned out to be a misguided, incomplete description
+  of functional programming.</p>
+
+  <p>I hope by now you are convinced that the UNIX Philosophy
+  of <q>every program does one thing, and does it well</q> is indeed
+  similar to, though not inspired by, the principles of functional
+  programming that were pioneered by Lisp &mdash; you could even argue
+  that UNIX is perhaps a naive formulation of functional
+  programming. And I hope you might agree that Emacs, as a Lisp
+  programming language originally implemented on UNIX systems, allows
+  you to do functional programming in a UNIX Programming Environment
+  better than you can do with a Bourne shell language such as
+  Bash. Therefore Emacs does actually follow the tenets of the UNIX
+  Philosophy, in some ways, even better than the UNIX Programming
+  Environment does so itself. In
+  the <a href="./emacs-unix-06_rebutting-critiques.html">final entry
+  of this series</a> I respond to some common criticisms that have
+  been made to these arguments, which I have heard in conversations I
+  have had with some of my peers.</p>
+  
+  <footer>
+    <menu>
+      <menuitem><a href="./emacs-unix-04_unix-is-lesser-fp.html">Previous</a></menuitem>
+      <menuitem><a href="./emacs-unix-06_rebutting-critiques.html">Next</a></menuitem>
+    </menu>
+
+    <!-- (TZ=UTC LC_TIME=en.US date '+%a, %F %H:%M %Z') -->
+    <h5 class="date">Published: </h5>
+    <!-- <h5 class="modified">Last modified: </h5> -->
+  </footer>
+</article>
+</main>
+</body>
+</html>

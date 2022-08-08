@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ramin Honary: Emacs fulfills the UNIX Philosophy (overview)</title>
+<meta name="author" content="Ramin Honary"/>
+<meta name="date" content=""/>
+<meta name="modified" content=""/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/amiri" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/roboto-condensed" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/renner" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/dejavu-sans-mono" type="text/css"/>
+<link rel="stylesheet" media="screen" href="/~ramin_hal9001/style-main.css"/>
+<body>
+<main>
+<article>
+  <header>
+    <h1>Emacs fulfills the <i>UNIX Philosophy</i></h1>
+    <menu>
+      <menuitem><a href="/~ramin_hal9001/index.html">Home</a></menuitem>
+      <menuitem><a href="/~ramin_hal9001/about.html">About</a></menuitem>
+      <menuitem><a href="https://github.com/RaminHAL9001">GitHub</a></menuitem>
+    </menu>
+  </header>
+
+  <p><b>Unpopular opinion: <em>actually</em>, Emacs does fulfill the
+  tenets of the UNIX philosophy.</b> In this 6-part series, I'd like
+  to define what the UNIX philosophy is, and whether Emacs fulfills
+  this philosophy. The UNIX philosophy, in brief is the idea
+  that <q><em>every program does one thing, and does it
+  well.</em></q> Does Emacs, with it's multiple built-in Email
+  clients, IRC client, web browser, terminal emulators, software
+  development tools, and games (like Tetris), even fit this
+  definition? It depends on how you define Emacs, that is, whether you
+  think of it as a text editor with too many extensions, or whether
+  you think of Emacs as a general purpose Lisp programming language
+  with hundreds of useful libraries and applications.</p>
+
+  <h3>In brief:</h3>
+
+  <p>Although this introductory article alone might be more than
+  enough exposition to convince you of my thesis, here is a summary of
+  the entire series of articles:</p>
+
+  <h4><a href="./emacs-unix-01_emacs-is-an-app-platform.html">1.
+  Emacs does <em>not</em> have <q>extensions</q>, it has apps</a></h4>
+
+  <p>I argue that Emacs is an app platform, not a text editor. Many of
+  us have heard the old joke that <q>Emacs is an operating system that
+  lacks a good editor.</q> I have heard many people complain
+  that <em>Emacs has <q>extensions</q></em>  that allow it to do
+  everything, including web browsing and e-mail, and that this
+  violates the UNIX philosophy of <q>every program does one thing
+  well</q>  becuase Emacs is one program that tries to do absolutely
+  everything. This is a misconception. In actual fact, Emacs is a
+  programming language and runtime. So it <em>does</em> do just one
+  thing well: it runs interactive Lisp programs. And
+  Emacs <b><q>extensions</q></b> are actually <b>applications</b>
+  written in Lisp.</p>
+
+  <p><a href="./emacs-unix-01_emacs-is-an-app-platform.html">(Read
+  full article)</a></p>
+
+  <h4><a href="./emacs-unix-02_what-is-the-unix-philosophy.html">2. How
+  I define the <q>UNIX Philosophy</q></a></h4>
+
+  <p>So suppose we agree that Emacs is a Lisp app platform. Maybe this
+  is just a technicality. Does Emacs really fulfill
+  the <em>spirit</em> of the UNIX Philosophy? When people
+  actually <em>use</em> Emacs, are they practicing the <em>ethos</em>
+  of UNIX?</p>
+
+  <p>In this article, I try to settle on a clearer definition
+  of <em>The UNIX Philosophy.</em> As a starting point,
+  the <a href="https://en.wikipedia.org/wiki/Unix_philosophy">Wikipedia
+  article</a> on this topic has a pretty comprehensive listing of the
+  various experts who have all spoken on the UNIX Philosophy
+  throughout history: Brian Kernighan, Doug McIlroy, Robert Pike,
+  Peter Salus, Eric Raymond, and others. Actually reading the work of
+  these experts, it is hard to find a single comprehensive definition,
+  but they all seem to agree on the following points:</p>
+
+  <ol>
+    <li><p>Programs are minimalist tools/components used to construct
+    solutions to problems. Each program should <q>do one thing, and do
+    it well.</q></p></li>
+
+    <li><p>Programs are composable transformations over data, and the
+    output of a program should be in a human readable and machine
+    readable textual format.</p></li>
+
+    <li><p>Programs should help users come up with their own ways to
+    automate tasks, and should make it easy to experiment with task
+    automation and software development in an <b>interactive
+    environment</b>. Implied is the use of
+    a <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">Read-Eval-Print
+    Loop (REPL)</a> where you can quickly experiment with running a
+    program and seeing results immediately.</p></li>
+  </ol>
+
+  <p><a href="./emacs-unix-02_what-is-the-unix-philosophy.html">(Read
+  full article)</a></p>
+
+  <h4><a href="./emacs-unix-03_unix-is-lesser-fp.html">3. The UNIX
+  Philosophy is a misguided formulation of FP</a></h4>
+
+  <p>This is really the crux of my argument, that the <em>UNIX
+  Philosophy</em> is really just a misguided, or perhaps incomplete
+  formulation of the principles
+  of <a href="https://en.wikipedia.org/wiki/Functional_programming"><b>functional
+  programming (FP)</b></a>. If you consider that a UNIX <q>program</q>
+  is conceptually equivalent to a FP <q>function</q>, the idea
+  that <q><em>every program does one thing, and does it well</em></q>,
+  is another way of expressing the principle that FP functions should
+  be pure, orthogonal, general, and elegant. Most of the the
+  principles of the UNIX Philosophy, at least by my above definition
+  of it, are either in agreement with FP, or are a natural consequence
+  of FP.</p>
+
+  <p><a href="./emacs-unix-03_unix-is-lesser-fp.html">(Read full article)</a></p>
+
+  <h4><a href="./emacs-unix-04_bourne-shell-is-not-fp.html">4. Emacs
+  Lisp is a FP language, Bash is <em>not</em></a></h4>
+
+  <p>In day-to-day usage, the Bourne family of programming languages,
+  usually Bash, is used to compose programs together into pipelines,
+  such as with the pipe <q><code>|</code></q>  operator. Though Bash
+  does allow for some functional programming techniques, it is not a
+  proper FP language, it only provides a few of the features of FP. To
+  the extent that the UNIX Philosophy is really about functional
+  programming, Lisp languages like Emacs fulfill the promise of the
+  UNIX philosophy perhaps even better than UNIX does. An interactive
+  Lisp programming environment such as Emacs provides a proper FP
+  language for general, day-to-day use on UNIX systems.</p>
+
+  <p>There was not much, if any, collaboration between the UNIX people
+  and the Lisp people. Unlike Lisp, UNIX was developed without the
+  mathematics of Lambda Calculus as a guide, so I would argue that the
+  UNIX Bourne shell scripting language is really just a naive
+  implementation of a FP language.</p>
+
+  <p><a href="./emacs-unix-04_bourne-shell-is-not-fp.html">(Read full
+  article)</a></p>
+
+  <h4><a href="./emacs-unix-05_unix-and-lisp-history.html">5. UNIX and
+  Lisp have a parallel history</a></h4>
+
+  <p>I present an overview of the history of Lisp and the history of
+  UNIX. Though both Lisp and UNIX have roots in
+  the <a href="https://www.csail.mit.edu/">MIT CSAIL</a>  laboratory,
+  I conclude that both were developed independently; Lisp preceded
+  UNIX, UNIX did not borrow any ideas from Lisp.</p>
+
+  <p>Both Lisp and UNIX emerged with the invention of <b><em>time
+  sharing systems</em>.</b> The technological advancements of time
+  sharing systems, and
+  the <a href="https://en.wikipedia.org/wiki/Command-line_interface"><em><b>command
+  line interface (CLI)</b></em></a> were both novel technologies at
+  this time, and efficient use of the CLI is what underlies both the
+  UNIX Philosophy, and the early Lisp programming techniques that were
+  developed around
+  the <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop"><b>Read-Eval-Print
+  Loop (REPL)</b></a>. Emacs was among the first Lisp implementations
+  on UNIX.</p>
+
+  <p><a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">Lisp</a>
+  was the first <a href="https://en.wikipedia.org/wiki/Functional_programming"><b>
+  functional programming (FP)</b> language</a>. It was developed at
+  MIT <a href="http://jmc.stanford.edu/articles/lisp/lisp.pdf"> in
+  1958 on the IBM 704 mainframe computer</a>, was based on
+  the <a href="https://en.wikipedia.org/wiki/Lambda_calculus">Lambda
+  Calculus</a> of
+  mathematician <a href="https://en.wikipedia.org/wiki/Alonzo_Church">Alonzo
+  Church</a>, and so it had a more rigorous mathematical foundation
+  than UNIX.</p>
+
+  <p><a href="./emacs-unix-05_unix-and-lisp-history.html">(Read
+  full article)</a></p>
+
+  <h4><a href="./emacs-unix-06_rebutting-critiques.html">6. A reply to
+  common criticisms</a></h4>
+
+  <p>There are criticisms that I commonly hear when discussing with
+  peers why Emacs actually fulfills the tenets of the UNIX
+  Philosophy. I to address these criticisms in this article.</p>
+
+  <p><a href="./emacs-unix-06_rebutting-critiques.html">(Read full
+  article)</a></p>
+
+  <h3>One final note</h3>
+
+  <p>Since I am talking about the UNIX philosophy, I will use the term
+  UNIX in the generic sense to refer to all UNIX-like operating
+  systems collectively, as this discussion also applies to BSD, Linux,
+  Minix, and several other distinct operating systems. Emacs, Bash,
+  and the GNU userland suite have been ported to nearly all such
+  operating systems.</p>
+
+  <p>Also, I will write <q>UNIX</q> in all caps, consistent with the
+  excerpts from the book <q><i>The UNIX Programming
+  Environment</i></q>.</p>
+
+  <h3>References</h3>
+
+  <p>The following is a list of reference material that provide the
+  source of facts that are presented throughout this series:</p>
+
+  <ol>
+    <li><p><a href="http://jmc.stanford.edu/articles/recursive/recursive.pdf">McCarthy,
+    John. <q><i>Recursive Functions of Symbolic Expressions and Their
+    Computation by Machine, Part I.</i></q> Massachusetts Institute of
+    Technology. April 1960.</a></p></li>
+
+    <li><p><a href="http://jmc.stanford.edu/articles/lisp/lisp.pdf">McCarthy,
+    John. <q><i>A History of Lisp.</i></q> Artificial Intelligence
+    Laboratory, Stanford University. 12 February 1979.</a></p></li>
+
+    <li><p><a href="https://archive.org/details/evolution-of-unix-tss">Ritchie,
+    Dennis M. <q><i>The Evolution of the Unix Time-sharing
+    System.</i></q> Bell Laboratories, 1984.</a></p></li>
+
+    <li><p><a href="https://archive.org/details/UNIXProgrammingEnvironment">Kernighan,
+    Brian W., Pike, Rob. <q><i>The UNIX Programming
+    Environment.</i></q> Bell Laboratories, Prentice Hall,
+    Inc. 1984.</a></p></li>
+  </ol>
+
+  <h3>Further reading</h3>
+  <ul>
+    <li><p><b><a href="http://xahlee.info/comp/unix_pipes_and_functional_lang.html">Xah
+    Lee, <q><i>Unix Pipe as Functional Language</i></q></a></b> where he
+    talks about UNIX pipes as function composition. He also points out
+    an interview with Alfred Aho, co-developer of the AWK programming
+    language, who says he thinks of the UNIX shell language as
+    a <q>prototypical functional language.</q></p></li>
+
+    <li><p><b><a href="https://www.dreamsongs.com/WIB.html">Richard
+    P. Gabriel, <q><i>Lisp: Good News, Bad News, How to Win
+    Big</i></q></a></b> &mdash; a well-circulated essay/rant from the
+    year 1991 about why Lisp had lost to UNIX and the C programming
+    language, in spite of both providing useful interactive
+    programming environments, and in spite of the fact that Lisp was
+    clearly the better FP language. He argues that the <q><i>worse is
+    better</i></q> principle, the ad-hoc approach to software design,
+    gets useful software to market faster than well-engineered
+    systems, which is one reason why UNIX won and Lisp lost. I will
+    add that nowadays, it seems that Haskell has a similar problem in
+    comparison to languages like Python and JavaScript.</b></p></li>
+
+    <li><p><b><a href="https://amodernist.com/texts/unix-harmful.html">Philip
+    Kaludercic, <q><i>Unix Considered Harmful</i></q></a></b> &mdash;
+    also goes into depth about the history of UNIX, and warns us to be
+    cautious about taking the UNIX Philosophy as a point of faith.  He
+    suggests that being trapped in such a dogmatic view has
+    contributed to a culture of layering hack upon hack to fix
+    problems inherent in system design, which happens when we think of
+    our dogma as unassailable.  When caught in this trap, rather than
+    re-asses our dogma, we instead try to work around obvious flaws
+    that we would be tempted to dismiss as implementation
+    details.</p></li>
+
+    <li><p><b><a href="https://www.oreilly.com/library/view/hackers/9781449390259/">In
+    Steven Levy's 2010 book, <q><i>Hackers: Heros of the computer
+    revolution,</i></q></a></b> all of part 1 of this book, chapters 1
+    through 7, tell the human side of the story of the people at the
+    MIT laboratory where Lisp was developed. Many of the stories
+    revolve around the very same PDP-1 and PDP-6 computers on which
+    the first ever Lisp REPL was developed. Although the story is not
+    about Lisp or the REPL, the story paints a picture of the people
+    who were there when Lisp was invented, and what the culture there
+    was like at the time. Part 4 goes into depth about Richard
+    M. Stallman and what led him to develop Emacs, GNU, and the free
+    software movement.</a></p></li>
+
+    <li><p><a href="https://odysee.com/@DistroTube:2/is-the-unix-philosophy-still-important:e">Derek
+    Taylor&apos;s video, <q><i>Is the Unix Philosophy Still Important?</i></q></a>
+    (<a href="https://youtu.be/bWQIBTB695w">YouTube link</a>) touches
+    on these issues and makes many of the same arguments as I do in
+    this article, but without comparing UNIX to Lisp the way I do. He
+    also comes to the same conclusions as in Philp Kaludercic&apos;s
+    article (listed above) about how the UNIX Philosophy should not be
+    followed dogmatically.</p></li>
+  </ul>
+
+  <footer>
+    <menu>
+      <menuitem><a href="./emacs-unix-01_emacs-is-an-app-platform.html">Next</a></menuitem>
+    </menu>
+
+    <!-- (TZ=UTC LC_TIME=en.US date '+%a, %F %H:%M %Z') -->
+    <h5 class="date">Published: </h5>
+    <!-- <h5 class="modified">Last modified: </h5> -->
+  </footer>
+</article>
+</main>
+</body>
+</html>

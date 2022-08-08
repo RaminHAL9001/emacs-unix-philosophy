@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ramin Honary: Emacs fulfills UNIX, part 4 -- Lisp does FP better</title>
+<meta name="author" content="Ramin Honary"/>
+<meta name="date" content=""/>
+<meta name="modified" content=""/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/amiri" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/roboto-condensed" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/renner" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/dejavu-sans-mono" type="text/css"/>
+<link rel="stylesheet" media="screen" href="/~ramin_hal9001/style-main.css"/>
+<body>
+<main>
+<article>
+  <header>
+    <h1>Emacs fulfills the <i>UNIX Philosophy</i></h1>
+    <menu>
+      <menuitem><a href="/~ramin_hal9001/index.html">Home</a></menuitem>
+      <menuitem><a href="/~ramin_hal9001/about.html">About</a></menuitem>
+      <menuitem><a href="https://github.com/RaminHAL9001">GitHub</a></menuitem>
+    </menu>
+    <h2>Part 4: Lisp does FP better than UNIX shell programming</h2>
+  </header>
+  
+  <blockquote>
+    <em>This is part 4 of
+    a <a href="./emacs-fulfills-the-unix-philosophy.html">6-part
+    series</a> of articles defining what the UNIX philosophy is, what
+    Emacs is, and discussing whether Emacs fulfills the UNIX
+    philosophy.</em>
+  </blockquote>
+
+  <pre>0. <a href="./emacs-fulfills-the-unix-philosophy.html">Introduction</a>
+1. <a href="./emacs-unix-01_emacs-is-an-app-platform.html">Emacs is an app platform</a>
+2. <a href="./emacs-unix-02_what-is-the-unix-philosophy.html">What is the UNIX philosophy</a>
+3. <a href="./emacs-unix-03_unix-is-lesser-fp.html">Seems like Functional Programming</a>
+4. Lisp does FP better than UNIX shell programming
+5. <a href="./emacs-unix-05_unix-and-lisp-history.html">The parallel histories of UNIX and Lisp</a>
+6. <a href="./emacs-unix-06_rebutting-critiques.html">Response to common criticisms</a></pre>
+
+  <p>In the <a href="./emacs-unix-03_unix-is-lesser-fp.html">part 3 of
+  this series</a> I talked about how the UNIX Philosophy, the idea
+  that <q>every program does one thing, and does it well</q> have
+  several defining principles in common with functional programming
+  (FP). In particular, functions in FP should also <q>do one thing and
+  do it well</q>, so <q>programs</q>  and <q>functions</q> are
+  conceptually the same. But to do FP, you must be able to compose
+  functions together using higher-order functions.</p>
+
+  <p>I will take for granted the fact that Lisp is commonly
+  acknowledge to be a FP language, so I will not explain why Lisp is a
+  FP language. This article is more about how UNIX shell programming,
+  the Bourne family of programming languages, are <em>not</em> FP
+  languages, and there are only a few built-in language constructs for
+  composing programs, like the pipe operator
+  (<q><code>|</code></q>). This proves to be quite the limitation when
+  it comes to composing programs. When composing programs or functions
+  together to solve larger problems, a Lisp programming language has
+  an advantage over a Bourne-style programming language. Refer to
+  the <a href="https://www.gnu.org/software/emacs/manual/html_mono/eshell.html">Eshell</a>
+  programming language, which combines a Bourne shell-like language
+  with Emacs Lisp, as just on example of how Lisp can improve on the
+  UNIX Programming Environment.</p>
+
+  <p>My goal here is not to evangelize Emacs. I readily admit Emacs is
+  far from perfect, and that there are certainly better
+  implementations of FP (Common Lisp, Scheme, and I especially love
+  Haskell). Rather my arguments is that there are better ways of
+  designing programs/functions in a way that they <q>do on thing and
+  do it well,</q> without designing your programs/functions for use in
+  a UNIX shell. It just so happens that Emacs is one of the oldest
+  Lisp implementations still in wide-spread use that was originally
+  implemented for UNIX OS and it&apos;s clones. Decades of evolution
+  have made Emacs one of the most practical means of integrating
+  Lisp-style FP within
+  the <a href="https://archive.org/details/UNIXProgrammingEnvironment">UNIX
+  Programming Environment</a>.</p>
+
+  <p>I also think I should mention that when Emacs
+  is <a href="../emacs-for-professionals/emacs-as-your-shell.html">used
+  as a shell</a> in place of Bash, you have access to a wider range of
+  FP tools. You still have access to all of the shell programs on your
+  computer, but you also have access to Lisp functions that compose in
+  other ways. You can, for example, capture the output of a command in
+  a text buffer, then start applying both Lisp functions and UNIX
+  shell programs as filters to the text buffer, seeing the result of
+  each transformation as it happens. This allows you to experiment
+  with function composition interactively, but without necessarily
+  being restricted to the use of the REPL.</p>
+
+  <h3>Emacs is less than perfect, Bash even less so</h3>
+
+  <p><a href="https://archive.org/details/unixprogramminge0000kern">In
+  a UNIX Programming Environment</a>, the Bourne shell family of
+  languages (like Bash) is the language in which you compose different
+  programs into a solution to a problem. It doesn&apos;t have to be
+  Bash, any language using
+  the <a href="https://en.wikipedia.org/wiki/POSIX">POSIX API</a> can
+  compose shell pipelines. But in practical, day-to-day UNIX or Linux
+  system usage, it is usually Bash or some Bourne-family shell
+  language.</p>
+
+  <p>Unfortunately, the Bourne shell languages are simply not very
+  good programming languages. This is not even a very controversial
+  opinion in my experience, so I won&apos;t spend too much time
+  explaining why. But I can mention a few of the problems:</p>
+
+  <ul>
+    <li><p><b>String is the only data type.</b> Structured data types must be
+    implemented by each respective program, and programs do not always
+    implement data structures consistently (e.g. CSV, JSON, or XML),
+    or in ways that can share code.</p></li>
+
+    <li><p><b>Process forking is CPU and memory intensive.</b> This
+    makes the shell interpreter <em>terminally</em> slow.</p></li>
+
+    <li><p><b>No enforcement of calling conventions.</b> Each program
+    defines it&apos;s own argument parsing convention, which is why
+    most programs take double-hyphen arguments, while some programs
+    like <code>find</code> take single-hyphen, and some
+    like <code>dd</code> take no hyphens.</p>
+    <pre>ls --inode --size --quote-name --color=always;
+find . -type d -name .git -prune -false -o -type f -name '*.lisp';
+dd if=/dev/urandom of=./white-noise.raw bs=44100 count=5;</pre>
+
+    <li><p><b>No built-in support for atomic operations.</b>
+    Asynchronous coroutines are error-prone, race conditions on the
+    standard output channel can occur as data from mutliple
+    asynchronous programs write to it. Line buffering solves
+    this problem <em>most</em> of the time.</p></li>
+
+    <li><p><b>The syntax is crufty and inelegant.</b> This is an
+    opinion of aesthetics, but in my experience most people agree with
+    this statement. With practice, you can remember all the various
+    curly-brace expansions, and understand why the following two lines
+    of code do <em>almost</em> the exact same thing:</p>
+    <pre>if [[ "${#LIST[@]}" > 10 ]]; then ... ; fi
+if [ "${#LIST[@]}" -gt 10 ]; then ... ; fi</pre>
+
+    <p>Still, these syntactic idiosyncrasies really bother some
+    people.</p>
+  </ul>
+
+  <p>Personally, I do enjoy Bash programming, but I always conscious
+  of it&apos;s shortcomings. I would only ever use it to perform
+  transformations on a small filesystem, or as a lightweight wrapper
+  around an application written in a better programming
+  language. Modern Lisp languages have solved all of these problems,
+  and scale well to fit applications of any complexity.</p>
+
+  <h3>Conclusions</h3>
+
+  <p>In the <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">part
+  3 of this series</a> I talked about how the UNIX Philosophy is
+  really a particular description of functional programming. In this
+  article (part 4) I talk about how UNIX shell programming is not the
+  best way to do functional programming, and suggest that using a Lisp
+  programming language such as Emacs is a better way to devise
+  software solutions to the various problems you may encounter as you
+  use a computer. If you are willing to accept each of those claims as
+  truth, then you might also be willing to accept that Emacs also, in
+  fact, does fulfill the UNIX Philosophy even better than the UNIX
+  shell programming environment. It is just a matter of understanding
+  that <q>every program does one thing and does it well</q> not only
+  applies to UNIX shell programs, but to Emacs Lisp commands as
+  well. And hopefully you can also see that using Emacs gives you
+  access to both sets of tools (all of which do one thing well): the
+  UNIX CLI tools, and all of the Emacs Lisp tools.</p>
+
+  <p>It seems like perhaps UNIX may have been inspired by Lisp, since
+  both UNIX and Lisp have roots in the MIT CSAIL laboratory, both were
+  first developed during roughly the same time period (Lisp in the
+  late 1950s, UNIX in the late
+  1960s). In <a href="./emacs-unix-05_unix-and-lisp-history.html">the
+  next section</a> I go into the history of both Lisp and UNIX, and I
+  conclude that, no, UNIX took no inspiration from Lisp. However
+  innovations in computer technology at the time did influence the
+  design of both UNIX and Lisp in similar ways, especially with regard
+  to what we now call the Read-Eval-Print Loop (REPL).</p>
+
+  <footer>
+    <menu>
+      <menuitem><a href="./emacs-unix-03_unix-is-lesser-fp.html">Previous</a></menuitem>
+      <menuitem><a href="./emacs-unix-05_unix-and-lisp-history.html">Next</a></menuitem>
+    </menu>
+
+    <!-- (TZ=UTC LC_TIME=en.US date '+%a, %F %H:%M %Z') -->
+    <h5 class="date">Published: </h5>
+    <!-- <h5 class="modified">Last modified: </h5> -->
+  </footer>
+</article>
+</main>
+</body>
+</html>

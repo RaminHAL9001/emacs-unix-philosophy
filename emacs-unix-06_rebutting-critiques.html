@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ramin Honary: Emacs fulfills UNIX, part 6 -- response to common criticisms</title>
+<meta name="author" content="Ramin Honary"/>
+<meta name="date" content=""/>
+<meta name="modified" content=""/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/amiri" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/roboto-condensed" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/renner" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/dejavu-sans-mono" type="text/css"/>
+<link rel="stylesheet" media="screen" href="/~ramin_hal9001/style-main.css"/>
+<body>
+<main>
+<article>
+  <header>
+    <h1>Emacs fulfills the <i>UNIX Philosophy</i></h1>
+    <menu>
+      <menuitem><a href="/~ramin_hal9001/index.html">Home</a></menuitem>
+      <menuitem><a href="/~ramin_hal9001/about.html">About</a></menuitem>
+      <menuitem><a href="https://github.com/RaminHAL9001">GitHub</a></menuitem>
+    </menu>
+    <h2>Part 6: Response to common criticisms</h2>
+  </header>
+
+  <blockquote>
+    <em>This is part 6 of
+    a <a href="./emacs-fulfills-the-unix-philosophy.html">6-part
+    series</a> of articles defining what the UNIX philosophy is, what
+    Emacs is, and discussing whether Emacs fulfills the UNIX
+    philosophy.</em>
+  </blockquote>
+
+  <pre>0. <a href="./emacs-fulfills-the-unix-philosophy.html">Introduction</a>
+1. <a href="./emacs-unix-01_emacs-is-an-app-platform.html">Emacs is an app platform</a>
+2. <a href="./emacs-unix-02_what-is-the-unix-philosophy.html">What is the UNIX philosophy</a>
+3. <a href="./emacs-unix-03_unix-is-lesser-fp.html">Seems like Functional Programming</a>
+4. <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">Lisp does FP better than UNIX shell programming</a>
+5. <a href="./emacs-unix-05_unix-and-lisp-history.html">The parallel histories of UNIX and Lisp</a>
+6. Response to common criticisms</pre>
+
+  <p>I still find that people seem resistant to the idea that Emacs is
+  actually a good example of the UNIX Philosophy in practice.
+  I even have difficulty convincing people that the UNIX Philosophy is
+  in any way similar to the practical application of FP. Maybe
+  this is the result of the
+  <q><i><a href="https://en.wikipedia.org/wiki/Editor_war">editor holy
+  wars</a></i></q> phenomenon, and that I am a known Emacs
+  zealot. Over the years, I have heard various objections to my
+  thesis:</p>
+
+  <ul>
+    <li><p><b><a href="#just-use-a-better-shell">If you don&apos;t like
+    Bash, UNIX lets you use whatever shell you want.</a></b> &mdash;
+    Sure, and you can
+    use <a href="../emacs-for-professionals/emacs-as-your-shell.html">Emacs
+    as as shell</a>.</p></li>
+    <li><p><b><a href="#unix-is-homogeneous">UNIX lets you run a
+    program written in any language.</a></b> &mdash; Emacs can execute
+    OS processes just as well as a shell language can.</p></li>
+    <li><p><b><a href="#cant-be-composable-without-unix">Without the
+    UNIX Philosophy, there are no composable programs.</a></b> This
+    is <a href="https://en.wikipedia.org/wiki/Denying_the_antecedent">denying
+    the antecedant,</a> a logical falacy.</p></li>
+    <li><p><b><a href="#windows-is-unix-now">So is Microsoft
+    Windows <q>UNIX</q> now?</a></b> Whether MS Windows follows the
+    UNIX philosophy is not a counter argument to anything I have
+    said.</p></li>
+  </ul>
+
+  <a name="just-use-a-better-shell"><h3>So just use a different shell scripting langauge.</h3></a>
+
+  <blockquote>
+    <p><i>You don&apos;t have to use Bash to script the UNIX
+    programming environment. If Bash is such a bad FP language, you
+    could use a more modern shell
+    like <a href="https://fishshell.com/">Fish</a>
+    or <a href="https://www.nushell.sh/">Nushell</a>.</i></p>
+  </blockquote>
+
+  <p>Yes, exactly. Or you could just
+  use <a href="../emacs-for-professionals/emacs-as-your-shell.html">Emacs
+  as your shell</a>. Must your shell be exclusively a REPL in order
+  for programs to be composable? You could try running a program,
+  capturing it&apos;s output in a buffer, then running another program
+  as a filter on that buffer. This is an alternative method to
+  appending one program after another to a shell pipeline.</p>
+
+  <p>It is also possible, even practical, to substitute the Emacs
+    executable for the Bash executable as your login shell.</p>
+
+  <pre>chsh -s /usr/bin/emacs;</pre>
+
+  <a name="unix-is-homogeneous"><h3>UNIX lets you compose functions written in any language</h3></a>
+
+  <blockquote>
+    <p><i>In the UNIX Programming Environment, a function (program) can
+    be written in any language at all, it is a homogeneous execution
+    environment. The language is often binary code that has been
+    compiled from languages like C, C++, Rust, or Go. But programs
+    written in Bash, AWK, Perl, and Python are also designed to be
+    used in shell pipelines.</i></p>
+  </blockquote>
+
+  <p>Again, <a href="../emacs-for-professionals/emacs-as-your-shell.html">Emacs
+  can be used as a shell</a>. It can compose many programs written in
+  many different languages as well as Bash can.</p>
+
+  <p>In any programming language, functions are often all written in
+  the same language. This leads to better performance because code
+  execution remains in a single runtime system, without process
+  forking, for greater extents of the program. But when composing
+  functions or programs written in different languages, any shell
+  language must fork a process.</p>
+
+  <p>If one is arguing that programs should be composed at the OS
+  level, rather than the interpreter level, this is less than
+  convincing. As a thought experiment, if you had a fundamentally
+  different, non-UNIX computing platform, perhaps something like
+  the <a href="https://en.wikipedia.org/wiki/Lisp_machine">Symbolics
+  Lisp Machines</a>, running a Bash interpreter, would Bash still be
+  the better way to compose programs into a pipeline? Does the OS or
+  computer hardware determine what is the best language to use for
+  composing programs into a pipeline?</p>
+
+  <a name="cant-be-composable-without-unix"><h3>You couldn&apos;t fork child processes without the UNIX Philosophy</h3></a>
+
+  <blockquote>
+    <p><i>But the UNIX Philosophy is the reason why we have efficient
+    forking of child processes, being able to compose processes into
+    pipelines of programs all sharing streams of bytes. Without the
+    UNIX Philosophy, program composition would not be
+    possible.</i></p>
+  </blockquote>
+
+  <p>This is a case
+  of <a href="https://en.wikipedia.org/wiki/Denying_the_antecedent">denying
+  the antecedant,</a> a logical falacy. Composabile functions can
+  exist absent an ethos of composability.</p>
+
+  <p>True, the POSIX standard does define APIs for forking child
+  processes, and for handling byte streams between the parent and
+  child process. And true, it is because of these POSIX APIs that
+  program pipelines (function composition) are possible across all the
+  many OSs that implement these APIs. But function composition can and
+  does exists outside of POSIX. The
+  old <a href="https://en.wikipedia.org/wiki/Lisp_machine">Symbolics
+  Lisp Machines</a> and
+  the <a href="https://en.wikipedia.org/wiki/Xerox_Star">Xerox
+  Star</a> come to mind as examples of non-POSIX systems that still
+  provided an environment of small, tool-like, composable programs
+  written in Lisp. On the Xerox Star,
+  both <a href="https://interlisp.org/">InterLisp</a>
+  and <a href="https://en.wikipedia.org/wiki/Smalltalk">SmallTalk</a>
+  programming environments were implemented, and also introduced the
+  idea of <em>copy and paste</em>, <em>drag and drop</em>, and
+  object-oriented <em>message passing</em>, as ways of graphically
+  composing programs.</p>
+
+  <p>Programming environments that have small, tool-like, composable,
+  programs can exist indepndent of the UNIX Philosophy.</p>
+
+  <a name="windows-is-unix-now"><h3>So... MS Windows is <q>UNIX</q> now?</h3></a>
+  
+  <blockquote>
+    <p><i>By your logic, Microsoft&apos;s Windows and DOS operating
+    systems follow the UNIX philosophy too. MS Windows implements most
+    of the POSIX API,
+    <a href="http://www.os2museum.com/wp/dos/dos-2-0-and-2-1/">MS-DOS
+    has had shell pipes</a> since 1983. PowerShell has built-in
+    support for JSON as a data interchange format.</i></p>
+  </blockquote>
+
+  <p>This is irrelevant to my point. Most of the GNU userland,
+  including Emacs and Bash, have been ported to Windows. You can use
+  all of the GNU tools on a Windows OS kernel. Even without the GNU
+  userland, many applications written for Windows nowadays follow the
+  UNIX Philosophy in their design. The vast majority of Windows
+  software does not follow the UNIX philosophy, that doesn&apos;t mean
+  the UNIX philosophy is categorically absent from MS
+  Windows. Likewise, popular GUI-only tools on Linux do not make Linux
+  less UNIX-like.</p>
+
+  <p>Maybe people who say this confuse the UNIX Philosophy with the
+  <a href="https://www.gnu.org/philosophy/free-sw.en.html">GNU Free
+  Software Philosophy</a>, since the GNU Free Software Philosophy is
+  an important ethos of Linux, but not UNIX.</p>
+
+  <p>The UNIX Philosophy says absolutely nothing about the philosophy
+  of Free Software. The original UNIX OS was proprietary software, and
+  the AT&amp;T corporation enforced licensing relentlessly. The
+  <a href="https://www.gnu.org/gnu/thegnuproject.html">frustration
+  with proprietary licensing for software</a> on UNIX, and more
+  specifically, the proprietary (non-UNIX) OS software for
+  the <a href="https://en.wikipedia.org/wiki/PDP-10">PDP-10
+  minicomputer</a>, is precisely what
+  prompted <a href="https://stallman.org/">Richard M. Stallman</a> to
+  start writing clones of all of the UNIX software under
+  a <a href="https://www.gnu.org/gnu/thegnuproject.html">project
+  called <q>GNU</q></a> (an acronym for <q><b>G</b>NU
+  is <b>N</b>ot <b>U</b>NIX</q>), protected by a share-alike software
+  license agreement
+  called <a href="https://www.gnu.org/licenses/quick-guide-gplv3.html">the
+  GPL</a>. Then this further led to
+  the <a href="https://www.gnu.org/philosophy/">free software
+  political movement</a>. These GNU project clones of the original
+  UNIX software are still in use today in nearly every single Linux
+  distribution.</p>
+
+  <p>GNU software, as a clone of UNIX, does indeed follow the UNIX
+  Philosophy, even though it explicitly is <q>not UNIX.</q></p>
+
+  <a name="conclusion"><h3>Conclusion</h3></a>
+
+  <p>By all means, let&apos;s continue defining our programs to be
+  more like composable functions in a FP language. But we need not
+  restrict ourselves to only using programs that can be composed with
+  shell pipes. We can incorporate a FP language such as Emacs Lisp
+  into our workflow, and include composable Lisp programs into our box
+  of tools that <q>do one thing, and do it well</q>. I often recommend
+  people try
+  using <a href="../emacs-for-professionals/emacs-as-your-shell.html">Emacs
+  as your shell</a> in place of Bash, it is likely that having access
+  to both Lisp functions in the Emacs Lisp environment, and shell
+  programs like <code>grep</code> in the UNIX Programming Environment,
+  will help you to discover new ways of composing the myriad simple
+  programming tools on your computer into interesting solutions for
+  various computing problems.</p>
+
+  <p>That said, my larger goal here was not really to convince anyone
+  to use Emacs, just that Emacs is a fine example of the UNIX
+  Philosophy at work, and not the polar opposite of it. Emacs does in
+  fact meet the requirements defined by the UNIX Philosophy if you are
+  willing to grant that <b>Emacs is not a text editor, but a Lisp
+  interpreter.</b> Emacs does one thing, and does it well: it runs
+  interactive Lisp programs.</p>
+
+  <p>Most importantly, I hope I presented enough evidence to convince
+  you that the UNIX Philosophy is really about FP, the idea that
+  functions are programs, and functions should be simple and
+  composable. Emacs Lisp is a functional programming language, and so
+  Emacs commands written in Lisp following the principles of FP are a
+  good way to write programs that <q>do one thing and do it
+  well.</q></p>
+  
+  <footer>
+    <menu>
+      <menuitem><a href="./emacs-unix-05_unix-and-lisp-history.html">Previous</a></menuitem>
+    </menu>
+
+    <!-- (TZ=UTC LC_TIME=en.US date '+%a, %F %H:%M %Z') -->
+    <h5 class="date">Published: </h5>
+    <!-- <h5 class="modified">Last modified: </h5> -->
+  </footer>
+</article>
+</main>
+</body>
+</html>

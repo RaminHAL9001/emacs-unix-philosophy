@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ramin Honary: Emacs fulfills UNIX, part 3 -- Seems like functional programming</title>
+<meta name="author" content="Ramin Honary"/>
+<meta name="date" content=""/>
+<meta name="modified" content=""/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/amiri" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/roboto-condensed" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/renner" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/dejavu-sans-mono" type="text/css"/>
+<link rel="stylesheet" media="screen" href="/~ramin_hal9001/style-main.css"/>
+<body>
+<main>
+<article>
+  <header>
+    <h1>Emacs fulfills the <i>UNIX Philosophy</i></h1>
+    <menu>
+      <menuitem><a href="/~ramin_hal9001/index.html">Home</a></menuitem>
+      <menuitem><a href="/~ramin_hal9001/about.html">About</a></menuitem>
+      <menuitem><a href="https://github.com/RaminHAL9001">GitHub</a></menuitem>
+    </menu>
+    <h2>Part 3: Seems like <span style="white-space: nowrap;">Functional Programming (FP)</span></h2>
+  </header>
+
+  <blockquote>
+    <em>This is part 3 of
+    a <a href="./emacs-fulfills-the-unix-philosophy.html">6-part
+    series</a> of articles defining what the UNIX philosophy is, what
+    Emacs is, and discussing whether Emacs fulfills the UNIX
+    philosophy.</em>
+  </blockquote>
+
+  <pre>0. <a href="./emacs-fulfills-the-unix-philosophy.html">Introduction</a>
+1. <a href="./emacs-unix-01_emacs-is-an-app-platform.html">Emacs is an app platform</a>
+2. <a href="./emacs-unix-02_what-is-the-unix-philosophy.html">What is the UNIX philosophy</a>
+3. Seems like Functional Programming
+4. <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">Lisp does FP better than UNIX shell programming</a>
+5. <a href="./emacs-unix-05_unix-and-lisp-history.html">The parallel histories of UNIX and Lisp</a>
+6. <a href="./emacs-unix-06_rebutting-critiques.html">Response to common criticisms</a></pre>
+
+  <p>In <a href="./emacs-unix-02_what-is-the-unix-philosophy.html">the
+  part 2 of this series</a>, tried to define more precisely what the
+  UNIX Philosophy really is, and I quoted many of the original authors
+  of UNIX and the UNIX Philosophy.</p>
+
+  <p>In this article, we get to the crux of my argument: that the UNIX
+  Philosophy is really all about <b>functional programming (FP)</b>,
+  or really, that the UNIX Philosophy is an incomplete or misguided
+  formulation of the principles of FP. If you really want to follow
+  the principle of using programs as tools that <q>do one thing and do
+  it well,</q>  using an FP environment like Emacs, which provides a
+  convenient interface for executing Lisp functions, is generally the
+  better solution.</p>
+
+  <h3>UNIX programming is trying to be FP</h3>
+
+  <blockquote>
+    <p><i>Doug McIlroy, at least in my book, deserves the credit for
+    pipes. He thought like a mathematician and I think he had this
+    connection right from the start. I think of the Unix command line
+    as a prototypical functional language.</i></p>
+
+    <p>&mdash; Alfred Aho (co-author of the AWK language), stated in an
+    interview, published
+    in <a href="https://dl.acm.org/doi/book/10.5555/1592983"><i>Masterminds
+    of Programming: Conversations with the Creators of Major
+    Programming Languages</i></a>, 2009.
+  </blockquote>
+
+  <p>Since the UNIX Philosophy is so conerned with the design and use
+  of programs, let&apos;s consider what a <q>program</q> really
+  is. When people talk about programs in the context of the UNIX
+  Philosophy, they usually mean <b>some fundamental unit of executable
+  code</b> in the operating system that can perform some
+  transformation on data, and that can be composed into shell
+  pipelines. There is also an emphasis on making the tools easy to use
+  in an interactive programming environment, so as to best take
+  advantage of the interactive nature of the command line.</p>
+
+  <h3>A <q>program</q> is a function</h3>
+
+  <p>In a UNIX Programming Environment, the fundamental unit of code
+  that is a <q>program</q> is conceptually equivalent to
+  a <q>function</q> in a FP language</a>. The definition of
+  a <q>program</q> need not be restricted to code that runs in
+  it&apos;s own process, and that would be a somewhat meaningless
+  constraint to apply. The most important property of these units of
+  code &mdash; these functions &mdash; is that they be easy to reason
+  about (do just one thing), be somehow <em>composable</em>, and be
+  easy to use in an <b>interactive environment</b>, such as in a
+  REPL.</p>
+
+  <p>The term <q>functional programming</q> encompasses a large
+  variety of concepts, and it is even more difficult to find consensus
+  on the definition and principles of FP than it is to find for the
+  definition of the UNIX Philosophy. But since this is a discussion
+  about UNIX, Emacs, and Lisp, I&apos;ll borrow from the work of
+  <a href="http://paulgraham.com/">Paul Graham</a>
+  (of <a href="https://www.ycombinator.com/">Y-Combinator</a> fame),
+  from his 1995 book <a href="https://paul-graham.com/acl/"><q><i>ANSI
+  Common Lisp,</i></q></a> in which he personally observes that:</p>
+
+  <blockquote>
+    <p>... <i>in Lisp the edit-compile-test cycle is so short that
+    programming is real-time.</i></p>
+    <p><i>Bigger abstractions and an interactive environment can change
+    the way organizations develop software. The phrase rapid
+    prototyping describes a kind of programming that began with Lisp:
+    in Lisp, you can often write a prototype in less time than it
+     would take to write the spec for one.</i></p>
+    <p>...</p>
+    <p><i>When you program in a functional style, bugs can only have a
+    local effect. When you use a very abstract language, some bugs
+    (e.g. dangling pointers) are no longer possible, and what remain
+    are easy to find, because your programs are so much shorter. And
+    when you have an interactive environment, you can correct bugs
+    instantly, instead of enduring a long cycle of editing, compiling,
+    and testing.</i></p>
+
+    <p>&mdash; Paul Graham, <a href="https://paul-graham.com/acl/"><q><i>ANSI Common
+    Lisp,</i></q>, section 1.2 - 1.3.</a>
+  </blockquote>
+
+  <p>On it&apos;s face, this may seem not to have much to do with the
+  UNIX Philosophy. But I think if you consider some of the practical
+  consequences that emerge from the properties of FP, you can begin to
+  see the relationship to the UNIX Philosophy:</p>
+
+  <ol>
+    <li><p>Functions should be <b>simple</b>, sometimes described
+    as <q><em>orthogonal,</em></q> or <q><em>general.</em></q> It
+    should be easy to reason about a function&apos;s
+    behavior. Functions should perform some minimal transformation on
+    the input.</p></li>
+
+    <li><p>Functions should be <b>composable</b>, through the use of
+    higher order functions. It should be possible to craft more
+    complex, more specific transformations on data by composing
+    simpler functions.</p></li>
+
+    <li><p>It should be easy to experiment with function composition
+    in an <b>interactive environment</b>. Though this is not so much a
+    <em>principle</em> of FP, rather it is a natural consequence of
+    it, especially Lisp. FP languages almost always provide
+    a <a href="https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node187.html">printable
+    representation</a> of the data going in and out of each function,
+    which is a human and machine readable format well suited for
+    interactive programming. This is because the printing and parsing
+    of these representations of data are themslves
+    also <em>functions</em> which evaluate a transformation of data to
+    strings, or of strings to data. Lisp languages
+    use <a href="https://en.wikipedia.org/wiki/S-expression">S-Expressions</a>.</p></li>
+  </ol>
+
+  <p>Of course, one could list several more distinguishing properties
+  of FP than just the above three. Just to name a few: purity,
+  referential transparency, pattern matching, polymorphism, and
+  equational reasoning. But as long as we can agree that the three
+  above points I mentioned are indeed useful and distinguishing
+  properties of FP, it is easier to see the parallels between FP and
+  the UNIX Philosophy.</p>
+
+  <p>And as a more concrete example: in FP languages, UNIX-like
+  pipelines are expressible as higher-order functions, usually this is
+  the <a href="https://en.wikipedia.org/wiki/Function_composition_(computer_science)">composition
+  operator</a> which serves the same purpose as the shell pipe
+  operator. In Haskell,
+  the <a href="https://en.wikipedia.org/wiki/Monad_(functional_programming)">Monadic
+  bind operator</a> is a composition operator expressed over
+  Monads.</p>
+
+  <h3>Function composition in a Bourne Shell</h3>
+
+  <p>I do <em>not</em> intend to argue the Bourne Shell family of
+  languages are functional programming languages. Alfred Aho (quoted
+  above) merely called it a <q><em>prototypical</em> functional
+  programming language.</q> But in this section I just want to draw
+  attention to some of the shell scripting techniques that mimic
+  functional programming, and how Bourne shell scripting makes
+  function composition possible.</p>
+
+  <h4>Pipes as function composition</h4>
+
+  <p>Shell pipes are probably the most obvious form of function
+  composition in the UNIX Programming Environment because of how the
+  input of one program goes to the output of another, which is similar
+  to <a href="https://en.wikipedia.org/wiki/Function_composition">the
+  mathematical definition of function composition</a>. For
+  example:</p>
+
+  <pre># Here, the output of 'cat' will become the input of 'wc'
+cat *.txt | wc -l;</pre>
+
+  <h4>Continuations</h4>
+
+  <p>And there are yet other ways to compose programs besides pipes,
+  for
+  example <a href="https://en.wikipedia.org/wiki/Continuation-passing_style">Continuation
+  Passing Style (CPS)</a>. This involves
+  a <a href="https://en.wikipedia.org/wiki/Partial_application">partial
+  function application</a> passed as an argument to another
+  function. An example of this in UNIX and Linux would be
+  the <code>find</code> program, which can take an <code>-exec</code>
+  argument, for example:</p>
+
+  <pre>find . -type f -name '*.txt' \
+    -exec grep -e 'gr[ea]y' -inHR '{}' +</pre>
+
+  <p>Here, the <code>find</code> program will search
+  for <code>*.txt</code> files, and for every file found it
+  runs <code>grep</code> with the file as an argument to it. Grep then
+  searches for occurences of the word <q>grey</q> or <q>gray</q>. In
+  this example (<code>grep -e 'gr[ea]y' -inHR '{}' \;</code>) is a
+  kind of <b>continuation</b> because <code>grep</code> may not be run
+  at all if no text files are found, or it may run many times for many
+  text files. It is up to the <code>find</code> program to decide when
+  or if to call the <code>grep</code> function. The arguments to
+  (<code>-e 'gr[ea]y' -inHR</code>) are <b>partially applied</b>, and
+  the final argument to <code>grep</code> (the file to search) is
+  substituted by <code>find</code> in the place of the
+  string <q><code>{}</code></q>. So this is also an example of
+  an <a href="https://en.wikipedia.org/wiki/Anaphoric_macro">anaphoric
+  function call</a>, in which the arguments to <code>grep</code>
+  include a pre-determined free variable (in this
+  case <q><code>{}</code></q>) that are bound when the continuation is
+  evaluated.</p>
+
+  <h4>Strict and lazy evaluation</h4>
+
+  <p><b>Command substitution</b> which is the <code>$(...)</code>
+  built-in syntax, and it&apos;s lazy counterpart: <b>Process
+  substitution</b>, which is the <code>&lt;(...)</code>, are roughly
+  similar to the FP concepts of <b>applicative order evaluation</b>,
+  and <b>normal order evaluation</b> (respectively). Not all shell
+  languages in the Bourne family provide these features, but this is a
+  feature of Bash. Here is a simple example of the command
+  substitution feature in action:</p>
+
+  <pre>grep '\&lt;keyword\&gt;' -nH $(find . -name '*.txt'; );</pre>
+
+  <p>Here the bracketed command <code style="white-space:
+  nowrap;">$(find . -name '*.txt'; )</code> passes the output of the
+  bracketed <code>find</code> command as a list of arguments to
+  the <code>grep</code> command. All files in all subdirectories that
+  match the pattern <code>*.txt</code> will be searched
+  by <code>grep</code> for the
+  pattern <code>'\&lt;keyword\&gt;'</code> in the list of files
+  returned by <code>find</code>.</p>
+
+  <p>The lazy form of this expression is <code>&lt;(...)</code>, which
+  has one major difference: rather than passing the output of the
+  bracketed command as a string, a temporary FIFO file is created and
+  the path to this file is passed as an argument to the command. A
+  FIFO is a kind of pipe, so when a command output is redirected to a
+  FIFO file, the FIFO allows the output command to be consumed one
+  line at a time. The command need not run to completion, so in this
+  sense it is <q>lazy.</q></p>
+
+  <pre>paste &lt;(find . -name '*.txt'; ) &lt;(find . -name '*.html'; ) | \
+    head -n 10;</pre>
+
+  <p>The <code>paste</code> does not read input lazily (one line at a
+  time), but we could create such a command easily
+  with <code>awk</code>, so lets assume <code>paste</code> reads input
+  files lazily. Now, here our <code>paste</code> command will take the
+  output of 2 different <code>find</code> commands and merge them into
+  2-columns of output (perhaps associating <code>.txt</code> files
+  with similarly named <code>.html</code> files). From the point of
+  view of the <code>paste</code> command, it recieves file paths to 2
+  temporary files, each file being a <code>FIFO</code>. It can read
+  each of these files one line at a time, which in effect accepts one
+  line of output from each <code>find</code> command at a time. Since
+  output is piped to the <code>head -n 10</code>  command, only 10
+  lines of output are printed before the command pipeline
+  terminates. If <code>paste</code> is indeed reading
+  the <code>FIFO</code> files <q>lazily</q>, neither <code>find</code>
+  command will run to completion, they will only find the first 10
+  files and then the command pipeline terminates.</p>
+
+  <h3>Conclusions</h3>
+
+  <p>In this article I tried to explain the similarities between FP
+  and the UNIX philosophy. I argue that the UNIX philosophy is an
+  attempt at formulating the principles of FP, but I also suggest that
+  the UNIX philsophy really falls short of actual FP. I also give
+  several examples of how certain concepts in FP can be expressed in
+  Bourne shell progrmming.</p>
+
+  <p>In the <a href="./emacs-unix-04_bourne-shell-is-not-fp.html">next
+  article</a> I will talk about how the shell language of UNIX is not
+  a proper FP language. If we can agree that the UNIX Philosophy is
+  really all about FP, and since Emacs is itself a Lisp
+  implementation, then maybe we can agree that functions programmed in
+  Emacs Lisp exemplify just what the UNIX philosophy is really all
+  about. So Emacs really does fulfill the spirit of the UNIX
+  Philosophy, perhaps even better than UNIX itself does.</p>
+
+  <footer>
+    <menu>
+      <menuitem><a href="./emacs-unix-02_what-is-the-unix-philosophy.html">Previous</a></menuitem>
+      <menuitem><a href="./emacs-unix-04_bourne-shell-is-not-fp.html">Next</a></menuitem>
+    </menu>
+
+    <!-- (TZ=UTC LC_TIME=en.US date '+%a, %F %H:%M %Z') -->
+    <h5 class="date">Published: </h5>
+    <!-- <h5 class="modified">Last modified: </h5> -->
+  </footer>
+</article>
+</main>
+</body>
+</html>
